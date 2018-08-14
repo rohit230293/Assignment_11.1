@@ -1,0 +1,25 @@
+from bs4 import BeautifulSoup
+import urllib.request
+import nltk
+
+# Read the given URL to response var
+response = urllib.request.urlopen('http://php.net/')
+html = response.read()
+
+# Parse HTML Document just read
+soup = BeautifulSoup(html,"html5lib")
+
+# Get all the text to text variable
+text = soup.get_text(strip=True)
+
+#Split the text in tokens
+tokens = [t for t in text.split()]
+
+# Get all the tokens in decending order of freq
+freq = nltk.FreqDist(tokens).most_common()
+
+#print all the words with frequency
+for key,val in freq: 
+    #print ("Word '{0:10}' is coming {0:3} times.'".format(str(key) ,str(val)))
+    print ("Total count is {} for word '{}'".format(val,str(key)))
+    
